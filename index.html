@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booth Makanan Urban Legend</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f5f0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: #c62828;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            border-bottom: 5px solid #ff9800;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #ffeb3b;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .menu-section {
+            flex: 2;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .order-section {
+            flex: 1;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+        
+        .section-title {
+            color: #c62828;
+            border-bottom: 3px solid #ff9800;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .menu-category {
+            margin-bottom: 30px;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 5px solid #c62828;
+        }
+        
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .menu-item {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .item-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .item-price {
+            color: #c62828;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .item-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .item-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            background-color: #ff9800;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .quantity-btn:hover {
+            background-color: #f57c00;
+        }
+        
+        .quantity {
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+        
+        .add-to-cart {
+            background-color: #c62828;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #b71c1c;
+        }
+        
+        .cart-items {
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px dashed #ddd;
+        }
+        
+        .cart-item-name {
+            flex: 2;
+        }
+        
+        .cart-item-quantity {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .cart-item-price {
+            flex: 1;
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 2px solid #ff9800;
+        }
+        
+        .cart-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .checkout-btn, .clear-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .checkout-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #388e3c;
+        }
+        
+        .clear-btn {
+            background-color: #f5f5f5;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+        
+        .clear-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            color: #888;
+            padding: 20px;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #666;
+            padding: 20px;
+            border-top: 1px solid #ddd;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+            </div>
+            <h1>Booth Makanan Urban Legend</h1>
+            <p>Rasakan kelezatan autentik makanan urban langsung dari booth kami</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="main-content">
+            <!-- Menu Section -->
+            <section class="menu-section">
+                <h2 class="section-title">Menu Makanan Urban</h2>
+                
+                <div class="menu-category">
+                    <h3 class="category-title">Makanan Utama</h3>
+                    <div class="menu-items" id="main-dishes">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="menu-category">
+                    <h3 class="category-title">Mie & Pangsit</h3>
+                    <div class="menu-items" id="noodles-dumplings">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="menu-category">
+                    <h3 class="category-title">Minuman</h3>
+                    <div class="menu-items" id="drinks">
+                        <!-- Items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Order Section -->
+            <section class="order-section">
+                <h2 class="section-title">Pesanan Anda</h2>
+                
+                <div class="cart-items" id="cart-items">
+                    <!-- Cart items will be populated by JavaScript -->
+                    <div class="empty-cart" id="empty-cart">Keranjang Anda kosong</div>
+                </div>
+                
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                
+                <div class="cart-actions">
+                    <button class="checkout-btn" id="checkout-btn">
+                        <i class="fas fa-shopping-cart"></i> Pesan Sekarang
+                    </button>
+                    <button class="clear-btn" id="clear-btn">
+                        <i class="fas fa-trash"></i> Kosongkan Keranjang
+                    </button>
+                </div>
+                
+                <div style="margin-top: 20px; font-size: 0.9rem; color: #666;">
+                    <p><i class="fas fa-info-circle"></i> Silakan pilih menu dan atur jumlah pesanan</p>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Item telah ditambahkan ke keranjang!
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>Booth Makanan Urban &copy; 2026 - Pesan via web atau langsung ke booth kami</p>
+            <p><i class="fas fa-map-marker-alt"></i> Lokasi: Desa Buareng Festive, Stand No. 12</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Data menu makanan China
+        const menuItems = {
+            "main-dishes": [
+                { id: 1, name: "Nasi Goreng Special", description: "Nasi goreng dengan udang, ayam, dan sayuran", price: 35000 },
+                { id: 2, name: "Ayam Kungpao", description: "Ayam tumis pedas dengan kacang dan cabai", price: 40000 },
+                { id: 3, name: "Babi Asam Manis", description: "Irisan daging babi dengan saus asam manis", price: 45000 },
+                { id: 4, name: "Sapi Lada Hitam", description: "Sapi tumis dengan lada hitam dan bawang bombay", price: 50000 },
+                { id: 5, name: "Cap Cay Kuah", description: "Campuran sayuran dengan seafood dan ayam", price: 38000 },
+                { id: 6, name: "Tahu Telur Saus Tiram", description: "Tahu dan telur dengan saus tiram spesial", price: 32000 }
+            ],
+            "noodles-dumplings": [
+                { id: 7, name: "Mie Goreng Seafood", description: "Mie goreng dengan cumi, udang, dan kerang", price: 42000 },
+                { id: 8, name: "Kwetiau Goreng", description: "Kwetiau goreng dengan daging sapi dan sayuran", price: 38000 },
+                { id: 9, name: "Pangsit Goreng", description: "8 buah pangsit goreng isi ayam dan udang", price: 30000 },
+                { id: 10, name: "Pangsit Kuah", description: "8 buah pangsit kuah dengan kaldu ayam", price: 32000 },
+                { id: 11, name: "Mie Rebus Special", description: "Mie rebus dengan ayam, jamur, dan pangsit", price: 40000 }
+            ],
+            "drinks": [
+                { id: 12, name: "Es Teh Manis", description: "Es teh dengan gula sesuai selera", price: 8000 },
+                { id: 13, name: "Teh Tarik", description: "Teh susu khas dengan buih lembut", price: 15000 },
+                { id: 14, name: "Jus Jeruk Segar", description: "Jus jeruk peras tanpa gula tambahan", price: 12000 },
+                { id: 15, name: "Air Mineral", description: "Air mineral botol 600ml", price: 5000 }
+            ]
+        };
+        
+        // State untuk keranjang belanja
+        let cart = [];
+        
+        // Fungsi untuk menampilkan menu
+        function displayMenu() {
+            for (const category in menuItems) {
+                const container = document.getElementById(category);
+                container.innerHTML = '';
+                
+                menuItems[category].forEach(item => {
+                    const menuItemElement = document.createElement('div');
+                    menuItemElement.className = 'menu-item';
+                    menuItemElement.innerHTML = `
+                        <div class="item-header">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
+                        </div>
+                        <div class="item-description">${item.description}</div>
+                        <div class="item-footer">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                                <span class="quantity" id="quantity-${item.id}">0</span>
+                                <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                            </div>
+                            <button class="add-to-cart" data-id="${item.id}">
+                                <i class="fas fa-cart-plus"></i> Tambah
+                            </button>
+                        </div>
+                    `;
+                    
+                    container.appendChild(menuItemElement);
+                });
+            }
+            
+            // Event listeners untuk tombol tambah/kurang
+            document.querySelectorAll('.increase').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    increaseQuantity(id);
+                });
+            });
+            
+            document.querySelectorAll('.decrease').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    decreaseQuantity(id);
+                });
+            });
+            
+            // Event listeners untuk tombol tambah ke keranjang
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const id = parseInt(this.getAttribute('data-id'));
+                    addToCart(id);
+                });
+            });
+        }
+        
+        // Fungsi untuk menambah jumlah
+        function increaseQuantity(id) {
+            const quantityElement = document.getElementById(`quantity-${id}`);
+            let quantity = parseInt(quantityElement.textContent);
+            quantity++;
+            quantityElement.textContent = quantity;
+        }
+        
+        // Fungsi untuk mengurangi jumlah
+        function decreaseQuantity(id) {
+            const quantityElement = document.getElementById(`quantity-${id}`);
+            let quantity = parseInt(quantityElement.textContent);
+            if (quantity > 0) {
+                quantity--;
+                quantityElement.textContent = quantity;
+            }
+        }
+        
+        // Fungsi untuk mendapatkan item menu berdasarkan ID
+        function getMenuItemById(id) {
+            for (const category in menuItems) {
+                const item = menuItems[category].find(item => item.id === id);
+                if (item) return item;
+            }
+            return null;
+        }
+        
+        // Fungsi untuk menambahkan item ke keranjang
+        function addToCart(id) {
+            const quantityElement = document.getElementById(`quantity-${id}`);
+            const quantity = parseInt(quantityElement.textContent);
+            
+            if (quantity <= 0) return;
+            
+            const menuItem = getMenuItemById(id);
+            if (!menuItem) return;
+            
+            // Cek apakah item sudah ada di keranjang
+            const existingItemIndex = cart.findIndex(item => item.id === id);
+            
+            if (existingItemIndex >= 0) {
+                // Update jumlah jika sudah ada
+                cart[existingItemIndex].quantity += quantity;
+            } else {
+                // Tambah item baru ke keranjang
+                cart.push({
+                    id: menuItem.id,
+                    name: menuItem.name,
+                    price: menuItem.price,
+                    quantity: quantity
+                });
+            }
+            
+            // Reset jumlah di menu
+            quantityElement.textContent = '0';
+            
+            // Update tampilan keranjang
+            updateCartDisplay();
+            
+            // Tampilkan notifikasi
+            showNotification(`${quantity} ${menuItem.name} ditambahkan ke keranjang`);
+        }
+        
+        // Fungsi untuk memperbarui tampilan keranjang
+        function updateCartDisplay() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const emptyCartElement = document.getElementById('empty-cart');
+            const cartTotalElement = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                emptyCartElement.style.display = 'block';
+                cartItemsContainer.innerHTML = '';
+                cartItemsContainer.appendChild(emptyCartElement);
+                cartTotalElement.textContent = 'Rp 0';
+                return;
+            }
+            
+            emptyCartElement.style.display = 'none';
+            
+            // Kosongkan kontainer
+            cartItemsContainer.innerHTML = '';
+            
+            let total = 0;
+            
+            // Tambahkan setiap item di keranjang
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-quantity">${item.quantity}x</div>
+                    <div class="cart-item-price">Rp ${itemTotal.toLocaleString('id-ID')}</div>
+                `;
+                
+                cartItemsContainer.appendChild(cartItemElement);
+            });
+            
+            // Update total
+            cartTotalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+        
+        // Fungsi untuk menampilkan notifikasi
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            
+            // Sembunyikan notifikasi setelah 3 detik
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Fungsi untuk mengosongkan keranjang
+        function clearCart() {
+            cart = [];
+            updateCartDisplay();
+            showNotification('Keranjang telah dikosongkan');
+        }
+        
+        // Fungsi untuk proses checkout
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Keranjang Anda kosong. Silakan tambahkan item terlebih dahulu.');
+                return;
+            }
+            
+            let orderSummary = "Pesanan Anda:\n";
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                orderSummary += `${item.name} - ${item.quantity}x = Rp ${itemTotal.toLocaleString('id-ID')}\n`;
+            });
+            
+            orderSummary += `\nTotal: Rp ${total.toLocaleString('id-ID')}`;
+            
+            // Untuk aplikasi statis, kita hanya akan menampilkan alert
+            // Dalam aplikasi nyata, ini akan mengirim data ke server
+            alert(orderSummary + "\n\nTerima kasih! Silakan lanjutkan pembayaran di kasir.");
+            
+            // Reset keranjang setelah checkout
+            clearCart();
+        }
+        
+        // Inisialisasi aplikasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            displayMenu();
+            
+            // Event listeners untuk tombol keranjang
+            document.getElementById('clear-btn').addEventListener('click', clearCart);
+            document.getElementById('checkout-btn').addEventListener('click', checkout);
+        });
+    </script>
+</body>
+</html>
