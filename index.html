@@ -6,6 +6,17 @@
     <title>Booth Makanan Urban Legend</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- PALET WARNA BARU (Ungu, Lilac, Pink Muda) --- */
+        :root {
+            --primary-purple: #8E24AA;   /* Ungu tua untuk header dan tombol utama */
+            --secondary-lilac: #BA68C8;  /* Lilac untuk aksen dan tombol sekunder */
+            --accent-pink: #F48FB1;      /* Pink muda untuk highlight dan border */
+            --bg-light-pink: #FFF0F5;    /* Latar belakang halaman (Lavender Blush) */
+            --text-dark: #333;           /* Warna teks utama */
+            --text-light: #666;          /* Warna teks deskripsi */
+            --white: #ffffff;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,8 +25,8 @@
         }
         
         body {
-            background-color: #f8f5f0;
-            color: #333;
+            background-color: var(--bg-light-pink); /* UBAH: Latar belakang pink sangat muda */
+            color: var(--text-dark);
             line-height: 1.6;
         }
         
@@ -26,11 +37,11 @@
         }
         
         header {
-            background-color: #c62828;
-            color: white;
+            background-color: var(--primary-purple); /* UBAH: Header ungu tua */
+            color: var(--white);
             padding: 20px 0;
             text-align: center;
-            border-bottom: 5px solid #ff9800;
+            border-bottom: 5px solid var(--accent-pink); /* UBAH: Border bawah pink muda */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
@@ -47,7 +58,7 @@
         .logo {
             font-size: 2.5rem;
             margin-bottom: 10px;
-            color: #ffeb3b;
+            color: var(--accent-pink); /* UBAH: Logo warna pink muda agar kontras */
         }
         
         .main-content {
@@ -59,26 +70,26 @@
         
         .menu-section {
             flex: 2;
-            background-color: white;
+            background-color: var(--white);
             border-radius: 10px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 15px rgba(142, 36, 170, 0.1); /* UBAH: Bayangan sedikit ungu */
         }
         
         .order-section {
             flex: 1;
-            background-color: white;
+            background-color: var(--white);
             border-radius: 10px;
             padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 15px rgba(142, 36, 170, 0.1); /* UBAH: Bayangan sedikit ungu */
             position: sticky;
             top: 20px;
             height: fit-content;
         }
         
         .section-title {
-            color: #c62828;
-            border-bottom: 3px solid #ff9800;
+            color: var(--primary-purple); /* UBAH: Judul section ungu tua */
+            border-bottom: 3px solid var(--secondary-lilac); /* UBAH: Garis bawah lilac */
             padding-bottom: 10px;
             margin-bottom: 20px;
             font-size: 1.8rem;
@@ -90,10 +101,10 @@
         
         .category-title {
             font-size: 1.5rem;
-            color: #333;
+            color: var(--text-dark);
             margin-bottom: 15px;
             padding-left: 10px;
-            border-left: 5px solid #c62828;
+            border-left: 5px solid var(--primary-purple); /* UBAH: Garis samping ungu tua */
         }
         
         .menu-items {
@@ -103,16 +114,16 @@
         }
         
         .menu-item {
-            background-color: #f9f9f9;
+            background-color: #FFFBFE; /* UBAH: Latar belakang item menu putih keunguan sangat muda */
             border-radius: 8px;
             padding: 15px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #E1BEE7; /* UBAH: Border lilac tipis */
             transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .menu-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 15px rgba(142, 36, 170, 0.15); /* UBAH: Shadow ungu saat hover */
         }
         
         .item-header {
@@ -125,17 +136,17 @@
         .item-name {
             font-weight: bold;
             font-size: 1.2rem;
-            color: #333;
+            color: var(--text-dark);
         }
         
         .item-price {
-            color: #c62828;
+            color: var(--primary-purple); /* UBAH: Harga warna ungu tua */
             font-weight: bold;
             font-size: 1.2rem;
         }
         
         .item-description {
-            color: #666;
+            color: var(--text-light);
             margin-bottom: 15px;
             font-size: 0.95rem;
         }
@@ -153,8 +164,8 @@
         }
         
         .quantity-btn {
-            background-color: #ff9800;
-            color: white;
+            background-color: var(--secondary-lilac); /* UBAH: Tombol +/- warna lilac */
+            color: var(--white);
             border: none;
             width: 30px;
             height: 30px;
@@ -165,7 +176,7 @@
         }
         
         .quantity-btn:hover {
-            background-color: #f57c00;
+            background-color: var(--primary-purple); /* UBAH: Hover menjadi ungu tua */
         }
         
         .quantity {
@@ -175,8 +186,8 @@
         }
         
         .add-to-cart {
-            background-color: #c62828;
-            color: white;
+            background-color: var(--primary-purple); /* UBAH: Tombol tambah warna ungu tua */
+            color: var(--white);
             border: none;
             padding: 8px 15px;
             border-radius: 5px;
@@ -186,7 +197,7 @@
         }
         
         .add-to-cart:hover {
-            background-color: #b71c1c;
+            background-color: #7B1FA2; /* UBAH: Hover ungu lebih gelap */
         }
         
         .cart-items {
@@ -195,11 +206,27 @@
             overflow-y: auto;
         }
         
+        /* Scrollbar styling untuk tema ungu */
+        .cart-items::-webkit-scrollbar {
+            width: 8px;
+        }
+        .cart-items::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .cart-items::-webkit-scrollbar-thumb {
+            background: var(--secondary-lilac);
+            border-radius: 10px;
+        }
+        .cart-items::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-purple);
+        }
+        
         .cart-item {
             display: flex;
             justify-content: space-between;
             padding: 12px 0;
-            border-bottom: 1px dashed #ddd;
+            border-bottom: 1px dashed #E1BEE7; /* UBAH: Garis pemisah item di keranjang */
         }
         
         .cart-item-name {
@@ -215,6 +242,7 @@
             flex: 1;
             text-align: right;
             font-weight: bold;
+            color: var(--primary-purple); /* UBAH: Harga di keranjang ungu */
         }
         
         .cart-total {
@@ -224,7 +252,8 @@
             font-weight: bold;
             margin-top: 20px;
             padding-top: 15px;
-            border-top: 2px solid #ff9800;
+            border-top: 2px solid var(--secondary-lilac); /* UBAH: Garis total lilac */
+            color: var(--primary-purple); /* UBAH: Teks total ungu */
         }
         
         .cart-actions {
@@ -245,42 +274,47 @@
         }
         
         .checkout-btn {
-            background-color: #4caf50;
-            color: white;
+            background-color: var(--primary-purple); /* UBAH: Tombol pesan sekarang jadi ungu tua */
+            color: var(--white);
+            box-shadow: 0 4px 6px rgba(142, 36, 170, 0.2);
         }
         
         .checkout-btn:hover {
-            background-color: #388e3c;
+            background-color: #7B1FA2; /* UBAH: Hover ungu lebih gelap */
+            transform: translateY(-2px);
         }
         
         .clear-btn {
             background-color: #f5f5f5;
-            color: #333;
+            color: var(--text-light);
             border: 1px solid #ddd;
         }
         
         .clear-btn:hover {
             background-color: #e0e0e0;
+            color: var(--text-dark);
         }
         
         .empty-cart {
             text-align: center;
-            color: #888;
+            color: #999;
             padding: 20px;
+            font-style: italic;
         }
         
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #4caf50;
-            color: white;
+            background-color: var(--secondary-lilac); /* UBAH: Notifikasi warna lilac */
+            color: var(--white);
             padding: 15px 25px;
             border-radius: 5px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             display: none;
             z-index: 1000;
             animation: slideIn 0.5s ease-out;
+            border-left: 5px solid var(--primary-purple);
         }
         
         @keyframes slideIn {
@@ -291,9 +325,10 @@
         footer {
             margin-top: 40px;
             text-align: center;
-            color: #666;
+            color: var(--text-light);
             padding: 20px;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #E1BEE7;
+            background-color: var(--white);
         }
         
         @media (max-width: 768px) {
@@ -320,39 +355,33 @@
     
     <div class="container">
         <div class="main-content">
-            <!-- Menu Section -->
             <section class="menu-section">
                 <h2 class="section-title">Menu Makanan Urban</h2>
                 
                 <div class="menu-category">
                     <h3 class="category-title">Makanan Utama</h3>
                     <div class="menu-items" id="main-dishes">
-                        <!-- Items will be populated by JavaScript -->
-                    </div>
+                        </div>
                 </div>
                 
                 <div class="menu-category">
                     <h3 class="category-title">Mie & Pangsit</h3>
                     <div class="menu-items" id="noodles-dumplings">
-                        <!-- Items will be populated by JavaScript -->
-                    </div>
+                        </div>
                 </div>
                 
                 <div class="menu-category">
                     <h3 class="category-title">Minuman</h3>
                     <div class="menu-items" id="drinks">
-                        <!-- Items will be populated by JavaScript -->
-                    </div>
+                        </div>
                 </div>
             </section>
             
-            <!-- Order Section -->
             <section class="order-section">
                 <h2 class="section-title">Pesanan Anda</h2>
                 
                 <div class="cart-items" id="cart-items">
-                    <!-- Cart items will be populated by JavaScript -->
-                    <div class="empty-cart" id="empty-cart">Keranjang Anda kosong</div>
+                    <div class="empty-cart">Keranjang Anda kosong</div>
                 </div>
                 
                 <div class="cart-total">
@@ -376,7 +405,6 @@
         </div>
     </div>
     
-    <!-- Notification -->
     <div class="notification" id="notification">
         Item telah ditambahkan ke keranjang!
     </div>
@@ -448,7 +476,7 @@
                 });
             }
             
-            // Event listeners untuk tombol tambah/kurang
+            // Event listeners untuk tombol
             document.querySelectorAll('.increase').forEach(button => {
                 button.addEventListener('click', function() {
                     const id = parseInt(this.getAttribute('data-id'));
@@ -463,7 +491,6 @@
                 });
             });
             
-            // Event listeners untuk tombol tambah ke keranjang
             document.querySelectorAll('.add-to-cart').forEach(button => {
                 button.addEventListener('click', function() {
                     const id = parseInt(this.getAttribute('data-id'));
@@ -472,7 +499,6 @@
             });
         }
         
-        // Fungsi untuk menambah jumlah
         function increaseQuantity(id) {
             const quantityElement = document.getElementById(`quantity-${id}`);
             let quantity = parseInt(quantityElement.textContent);
@@ -480,7 +506,6 @@
             quantityElement.textContent = quantity;
         }
         
-        // Fungsi untuk mengurangi jumlah
         function decreaseQuantity(id) {
             const quantityElement = document.getElementById(`quantity-${id}`);
             let quantity = parseInt(quantityElement.textContent);
@@ -490,7 +515,6 @@
             }
         }
         
-        // Fungsi untuk mendapatkan item menu berdasarkan ID
         function getMenuItemById(id) {
             for (const category in menuItems) {
                 const item = menuItems[category].find(item => item.id === id);
@@ -499,7 +523,6 @@
             return null;
         }
         
-        // Fungsi untuk menambahkan item ke keranjang
         function addToCart(id) {
             const quantityElement = document.getElementById(`quantity-${id}`);
             const quantity = parseInt(quantityElement.textContent);
@@ -509,14 +532,11 @@
             const menuItem = getMenuItemById(id);
             if (!menuItem) return;
             
-            // Cek apakah item sudah ada di keranjang
             const existingItemIndex = cart.findIndex(item => item.id === id);
             
             if (existingItemIndex >= 0) {
-                // Update jumlah jika sudah ada
                 cart[existingItemIndex].quantity += quantity;
             } else {
-                // Tambah item baru ke keranjang
                 cart.push({
                     id: menuItem.id,
                     name: menuItem.name,
@@ -525,38 +545,32 @@
                 });
             }
             
-            // Reset jumlah di menu
             quantityElement.textContent = '0';
-            
-            // Update tampilan keranjang
             updateCartDisplay();
-            
-            // Tampilkan notifikasi
             showNotification(`${quantity} ${menuItem.name} ditambahkan ke keranjang`);
         }
         
         // Fungsi untuk memperbarui tampilan keranjang
         function updateCartDisplay() {
             const cartItemsContainer = document.getElementById('cart-items');
-            const emptyCartElement = document.getElementById('empty-cart');
             const cartTotalElement = document.getElementById('cart-total');
             
+            // Bersihkan kontainer
+            cartItemsContainer.innerHTML = '';
+            
             if (cart.length === 0) {
-                emptyCartElement.style.display = 'block';
-                cartItemsContainer.innerHTML = '';
-                cartItemsContainer.appendChild(emptyCartElement);
+                // Jika kosong, buat elemen pesan kosong
+                const emptyMsg = document.createElement('div');
+                emptyMsg.className = 'empty-cart';
+                emptyMsg.textContent = 'Keranjang Anda kosong';
+                cartItemsContainer.appendChild(emptyMsg);
+                
                 cartTotalElement.textContent = 'Rp 0';
                 return;
             }
             
-            emptyCartElement.style.display = 'none';
-            
-            // Kosongkan kontainer
-            cartItemsContainer.innerHTML = '';
-            
             let total = 0;
             
-            // Tambahkan setiap item di keranjang
             cart.forEach(item => {
                 const itemTotal = item.price * item.quantity;
                 total += itemTotal;
@@ -572,30 +586,24 @@
                 cartItemsContainer.appendChild(cartItemElement);
             });
             
-            // Update total
             cartTotalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
         }
         
-        // Fungsi untuk menampilkan notifikasi
         function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
             notification.style.display = 'block';
-            
-            // Sembunyikan notifikasi setelah 3 detik
             setTimeout(() => {
                 notification.style.display = 'none';
             }, 3000);
         }
         
-        // Fungsi untuk mengosongkan keranjang
         function clearCart() {
             cart = [];
             updateCartDisplay();
             showNotification('Keranjang telah dikosongkan');
         }
         
-        // Fungsi untuk proses checkout
         function checkout() {
             if (cart.length === 0) {
                 showNotification('Keranjang Anda kosong. Silakan tambahkan item terlebih dahulu.');
@@ -613,19 +621,14 @@
             
             orderSummary += `\nTotal: Rp ${total.toLocaleString('id-ID')}`;
             
-            // Untuk aplikasi statis, kita hanya akan menampilkan alert
-            // Dalam aplikasi nyata, ini akan mengirim data ke server
             alert(orderSummary + "\n\nTerima kasih! Silakan lanjutkan pembayaran di kasir.");
-            
-            // Reset keranjang setelah checkout
             clearCart();
         }
         
-        // Inisialisasi aplikasi saat halaman dimuat
         document.addEventListener('DOMContentLoaded', function() {
             displayMenu();
+            updateCartDisplay(); // Panggil sekali di awal untuk memastikan status kosong benar
             
-            // Event listeners untuk tombol keranjang
             document.getElementById('clear-btn').addEventListener('click', clearCart);
             document.getElementById('checkout-btn').addEventListener('click', checkout);
         });
