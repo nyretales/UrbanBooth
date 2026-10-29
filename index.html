@@ -1,637 +1,1010 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booth Makanan Urban Legend</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* --- PALET WARNA BARU (Ungu, Lilac, Pink Muda) --- */
-        :root {
-            --primary-purple: #8E24AA;   /* Ungu tua untuk header dan tombol utama */
-            --secondary-lilac: #BA68C8;  /* Lilac untuk aksen dan tombol sekunder */
-            --accent-pink: #F48FB1;      /* Pink muda untuk highlight dan border */
-            --bg-light-pink: #FFF0F5;    /* Latar belakang halaman (Lavender Blush) */
-            --text-dark: #333;           /* Warna teks utama */
-            --text-light: #666;          /* Warna teks deskripsi */
-            --white: #ffffff;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Jelajahi menu makanan dan minuman Urban Legend. Pilih menu favorit, atur jumlah, lalu kirim pesanan lewat WhatsApp dengan mudah.">
+  <title>Urban Legend — Kuliner Legendaris Sejak 1954</title>
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: var(--bg-light-pink); /* UBAH: Latar belakang pink sangat muda */
-            color: var(--text-dark);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            background-color: var(--primary-purple); /* UBAH: Header ungu tua */
-            color: var(--white);
-            padding: 20px 0;
-            text-align: center;
-            border-bottom: 5px solid var(--accent-pink); /* UBAH: Border bawah pink muda */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        
-        .logo {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: var(--accent-pink); /* UBAH: Logo warna pink muda agar kontras */
-        }
-        
-        .main-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 30px;
-        }
-        
-        .menu-section {
-            flex: 2;
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(142, 36, 170, 0.1); /* UBAH: Bayangan sedikit ungu */
-        }
-        
-        .order-section {
-            flex: 1;
-            background-color: var(--white);
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(142, 36, 170, 0.1); /* UBAH: Bayangan sedikit ungu */
-            position: sticky;
-            top: 20px;
-            height: fit-content;
-        }
-        
-        .section-title {
-            color: var(--primary-purple); /* UBAH: Judul section ungu tua */
-            border-bottom: 3px solid var(--secondary-lilac); /* UBAH: Garis bawah lilac */
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-        
-        .menu-category {
-            margin-bottom: 30px;
-        }
-        
-        .category-title {
-            font-size: 1.5rem;
-            color: var(--text-dark);
-            margin-bottom: 15px;
-            padding-left: 10px;
-            border-left: 5px solid var(--primary-purple); /* UBAH: Garis samping ungu tua */
-        }
-        
-        .menu-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        
-        .menu-item {
-            background-color: #FFFBFE; /* UBAH: Latar belakang item menu putih keunguan sangat muda */
-            border-radius: 8px;
-            padding: 15px;
-            border: 1px solid #E1BEE7; /* UBAH: Border lilac tipis */
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(142, 36, 170, 0.15); /* UBAH: Shadow ungu saat hover */
-        }
-        
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        
-        .item-name {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: var(--text-dark);
-        }
-        
-        .item-price {
-            color: var(--primary-purple); /* UBAH: Harga warna ungu tua */
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .item-description {
-            color: var(--text-light);
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-        
-        .item-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .quantity-btn {
-            background-color: var(--secondary-lilac); /* UBAH: Tombol +/- warna lilac */
-            color: var(--white);
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .quantity-btn:hover {
-            background-color: var(--primary-purple); /* UBAH: Hover menjadi ungu tua */
-        }
-        
-        .quantity {
-            font-weight: bold;
-            min-width: 30px;
-            text-align: center;
-        }
-        
-        .add-to-cart {
-            background-color: var(--primary-purple); /* UBAH: Tombol tambah warna ungu tua */
-            color: var(--white);
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .add-to-cart:hover {
-            background-color: #7B1FA2; /* UBAH: Hover ungu lebih gelap */
-        }
-        
-        .cart-items {
-            margin-bottom: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-        
-        /* Scrollbar styling untuk tema ungu */
-        .cart-items::-webkit-scrollbar {
-            width: 8px;
-        }
-        .cart-items::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        .cart-items::-webkit-scrollbar-thumb {
-            background: var(--secondary-lilac);
-            border-radius: 10px;
-        }
-        .cart-items::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-purple);
-        }
-        
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px dashed #E1BEE7; /* UBAH: Garis pemisah item di keranjang */
-        }
-        
-        .cart-item-name {
-            flex: 2;
-        }
-        
-        .cart-item-quantity {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .cart-item-price {
-            flex: 1;
-            text-align: right;
-            font-weight: bold;
-            color: var(--primary-purple); /* UBAH: Harga di keranjang ungu */
-        }
-        
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 2px solid var(--secondary-lilac); /* UBAH: Garis total lilac */
-            color: var(--primary-purple); /* UBAH: Teks total ungu */
-        }
-        
-        .cart-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .checkout-btn, .clear-btn {
-            padding: 12px;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-        
-        .checkout-btn {
-            background-color: var(--primary-purple); /* UBAH: Tombol pesan sekarang jadi ungu tua */
-            color: var(--white);
-            box-shadow: 0 4px 6px rgba(142, 36, 170, 0.2);
-        }
-        
-        .checkout-btn:hover {
-            background-color: #7B1FA2; /* UBAH: Hover ungu lebih gelap */
-            transform: translateY(-2px);
-        }
-        
-        .clear-btn {
-            background-color: #f5f5f5;
-            color: var(--text-light);
-            border: 1px solid #ddd;
-        }
-        
-        .clear-btn:hover {
-            background-color: #e0e0e0;
-            color: var(--text-dark);
-        }
-        
-        .empty-cart {
-            text-align: center;
-            color: #999;
-            padding: 20px;
-            font-style: italic;
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background-color: var(--secondary-lilac); /* UBAH: Notifikasi warna lilac */
-            color: var(--white);
-            padding: 15px 25px;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            display: none;
-            z-index: 1000;
-            animation: slideIn 0.5s ease-out;
-            border-left: 5px solid var(--primary-purple);
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        footer {
-            margin-top: 40px;
-            text-align: center;
-            color: var(--text-light);
-            padding: 20px;
-            border-top: 1px solid #E1BEE7;
-            background-color: var(--white);
-        }
-        
-        @media (max-width: 768px) {
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .menu-items {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #ff5200;
+      --primary-hover: #e04800;
+      --primary-soft: #fff4ed;
+      --accent: #ffb703;
+      --dark-bg: #0f172a;
+      --dark-card: #1e293b;
+      --border: #e2e8f0;
+      --radius: 18px;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 30px -10px rgba(255, 82, 0, 0.15);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --bar-h: 76px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: calc(var(--bar-h) + var(--safe-bottom) + 16px);
+    }
+    button, input, textarea { font-family: inherit; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid rgba(255, 82, 0, 0.55); outline-offset: 2px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    .container { width: min(1200px, 100% - 24px); margin-inline: auto; }
+
+    /* ───── Header ───── */
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+      padding-bottom: 1.5rem;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255,82,0,0.2) 0%, rgba(0,0,0,0) 70%);
+      pointer-events: none;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      position: relative;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff; }
+    .brand-logo {
+      width: 42px; height: 42px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(255, 82, 0, 0.4);
+    }
+    .brand-text strong { display: block; font-size: 1.05rem; font-weight: 800; letter-spacing: 0.5px; line-height: 1.2; }
+    .brand-text span { font-size: 0.65rem; color: #94a3b8; letter-spacing: 2px; text-transform: uppercase; }
+    .nav-call {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #fff; text-decoration: none;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 9px 14px;
+      border-radius: 99px;
+      font-size: 0.8rem; font-weight: 700;
+      transition: background .2s;
+    }
+    .nav-call:hover { background: rgba(255,255,255,0.16); }
+    .nav-call i { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: center;
+      gap: 18px;
+      padding: 0.75rem 0 0.5rem;
+      position: relative;
+    }
+    .badge-hero {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255, 183, 3, 0.15);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 1px;
+      margin-bottom: 0.9rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.9rem, 6vw, 3.5rem);
+      line-height: 1.15; font-weight: 800;
+      margin-bottom: 0.8rem;
+    }
+    .hero h1 span { color: var(--primary); }
+    .hero-desc { color: #94a3b8; font-size: 0.92rem; margin-bottom: 1.2rem; max-width: 52ch; }
+    .btn-hero {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--primary); color: #fff;
+      text-decoration: none; font-weight: 700; font-size: 0.92rem;
+      padding: 13px 22px; border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(255, 82, 0, 0.35);
+      transition: background .2s, transform .2s;
+    }
+    .btn-hero:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+    .hero-image-wrap { position: relative; display: flex; justify-content: center; }
+    .hero-img-bg {
+      width: 100%;
+      height: 150px;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: var(--shadow-lg);
+    }
+    .floating-card {
+      position: absolute; bottom: -12px; left: 10px;
+      background: #fff; color: var(--text-main);
+      padding: 8px 12px; border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 700; font-size: 0.78rem; line-height: 1.3;
+    }
+    .floating-card i { color: #eab308; font-size: 1.1rem; }
+    .floating-card small { display: block; font-size: 0.7rem; color: #64748b; font-weight: 400; }
+
+    /* Features */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 1.6rem;
+      position: relative;
+    }
+    .feature-item {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 10px 8px;
+      border-radius: 12px;
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px;
+    }
+    .feature-icon {
+      width: 32px; height: 32px; border-radius: 8px;
+      background: rgba(255, 82, 0, 0.15); color: var(--primary);
+      display: grid; place-items: center; font-size: 0.95rem; flex-shrink: 0;
+    }
+    .feature-text strong { display: block; font-size: 0.74rem; color: #fff; line-height: 1.25; }
+    .feature-text span { font-size: 0.66rem; color: #94a3b8; line-height: 1.25; display: block; }
+
+    /* ───── Main ───── */
+    main { padding: 0 0 2rem; }
+
+    /* Sticky controls: pencarian + kategori selalu terjangkau */
+    .controls-wrap {
+      position: sticky; top: 0; z-index: 50;
+      padding: 10px 0 8px;
+      background: rgba(248, 250, 252, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      margin-bottom: 10px;
+    }
+    .controls-bar {
+      background: #fff;
+      padding: 10px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      display: flex; flex-direction: column; gap: 10px;
+      border: 1px solid var(--border);
+    }
+    .search-box { position: relative; width: 100%; }
+    .search-box > i {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); pointer-events: none;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 11px 42px 11px 40px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      outline: none;
+      font-size: 16px; /* cegah auto-zoom di iOS */
+      background: #f8fafc;
+      transition: border .2s, background .2s;
+      -webkit-appearance: none; appearance: none;
+    }
+    .search-box input:focus { border-color: var(--primary); background: #fff; }
+    .search-clear {
+      position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+      width: 32px; height: 32px; border: none; border-radius: 50%;
+      background: transparent; color: var(--text-muted);
+      display: none; place-items: center;
+    }
+    .search-clear.show { display: grid; }
+
+    .filter-tabs {
+      display: flex; gap: 8px;
+      overflow-x: auto; width: 100%;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+    }
+    .filter-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: #f1f5f9; border: none;
+      padding: 8px 14px; border-radius: 10px;
+      font-size: 0.82rem; font-weight: 600; color: var(--text-muted);
+      white-space: nowrap; flex-shrink: 0;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: background .2s, color .2s;
+      scroll-snap-align: start;
+    }
+    .tab-btn em {
+      font-style: normal; font-size: 0.72rem; font-weight: 700;
+      background: rgba(15, 23, 42, 0.08); padding: 1px 7px; border-radius: 99px;
+    }
+    .tab-btn.active { background: var(--primary); color: #fff; }
+    .tab-btn.active em { background: rgba(255,255,255,0.25); }
+    @media (hover: hover) { .tab-btn:not(.active):hover { background: #e2e8f0; } }
+
+    /* ───── Menu: HP = 1 menu per baris (kartu horizontal ringkas) ───── */
+    .menu-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+    .card-menu {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: grid;
+      grid-template-columns: 104px 1fr;
+      gap: 12px;
+      padding: 10px;
+      transition: box-shadow .25s, border-color .25s;
+    }
+    .card-menu.in-cart { border-color: rgba(255, 82, 0, 0.45); box-shadow: 0 0 0 3px rgba(255, 82, 0, 0.08); }
+    .card-img-wrap {
+      position: relative;
+      width: 104px; height: 104px;
+      border-radius: 14px; overflow: hidden;
+      background: #e2e8f0;
+      align-self: start;
+    }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .card-img-wrap.img-fail::after {
+      content: '\f2e7'; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+      position: absolute; inset: 0; display: grid; place-items: center;
+      font-size: 1.6rem; color: #94a3b8;
+    }
+    .card-img-wrap.img-fail img { visibility: hidden; }
+
+    .card-body { display: flex; flex-direction: column; min-width: 0; }
+    .card-title { font-size: 1rem; font-weight: 700; line-height: 1.3; color: var(--text-main); }
+    .card-desc {
+      font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;
+      margin: 3px 0 8px;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      flex-grow: 1;
+    }
+    .card-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; }
+    .price { font-weight: 800; font-size: 0.95rem; color: var(--primary); white-space: nowrap; }
+
+    .btn-add {
+      background: var(--primary); color: #fff; border: none;
+      border-radius: 10px; min-height: 38px; padding: 0 14px;
+      font-size: 0.84rem; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: background .2s, transform .1s;
+    }
+    .btn-add:hover { background: var(--primary-hover); }
+    .btn-add:active { transform: scale(0.96); }
+
+    .stepper {
+      display: inline-flex; align-items: center;
+      background: var(--primary-soft);
+      border: 1px solid rgba(255, 82, 0, 0.25);
+      border-radius: 10px; padding: 2px;
+    }
+    .stepper button {
+      width: 36px; height: 34px; border: none; border-radius: 8px;
+      background: #fff; color: var(--primary);
+      display: grid; place-items: center; font-size: 0.8rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: background .15s, color .15s, transform .1s;
+    }
+    .stepper button:active { transform: scale(0.92); }
+    .stepper button:hover { background: var(--primary); color: #fff; }
+    .stepper output { min-width: 32px; text-align: center; font-size: 0.92rem; font-weight: 800; color: var(--text-main); }
+
+    .empty-state { grid-column: 1 / -1; text-align: center; padding: 40px 16px; color: var(--text-muted); }
+    .empty-state i { font-size: 2rem; margin-bottom: 10px; color: #cbd5e1; }
+    .empty-state button {
+      margin-top: 12px; background: var(--primary-soft); color: var(--primary);
+      border: 1px solid rgba(255,82,0,.25); border-radius: 10px; padding: 9px 16px; font-weight: 700; font-size: 0.85rem;
+    }
+
+    /* ───── Floating cart bar ───── */
+    .floating-cart-bar {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000;
+      padding: 10px 12px calc(10px + var(--safe-bottom));
+      transform: translateY(110%);
+      transition: transform .3s ease;
+      pointer-events: none;
+    }
+    .floating-cart-bar.active { transform: translateY(0); }
+    .fc-btn {
+      pointer-events: auto;
+      width: min(720px, 100%); margin-inline: auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      background: var(--dark-bg); color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px; padding: 10px 10px 10px 12px;
+      box-shadow: 0 14px 34px rgba(15, 23, 42, 0.4);
+      text-align: left;
+    }
+    .fc-info { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .fc-icon {
+      width: 42px; height: 42px; background: var(--primary); border-radius: 12px;
+      display: grid; place-items: center; font-size: 1.1rem; position: relative; flex-shrink: 0;
+    }
+    .fc-badge {
+      position: absolute; top: -6px; right: -6px;
+      background: var(--accent); color: #000;
+      font-size: 0.7rem; font-weight: 800;
+      min-width: 20px; padding: 1px 6px; border-radius: 10px; text-align: center;
+    }
+    .fc-text small { display: block; font-size: 0.72rem; color: #94a3b8; line-height: 1.2; }
+    .fc-text strong { font-size: 1.02rem; color: #fff; line-height: 1.3; }
+    .fc-cta {
+      background: var(--primary); color: #fff; font-weight: 700; font-size: 0.86rem;
+      padding: 11px 16px; border-radius: 12px; white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .floating-cart-bar.bump .fc-icon { animation: bump .35s ease; }
+    @keyframes bump { 50% { transform: scale(1.18); } }
+
+    /* ───── Bottom sheet (keranjang & pesan) ───── */
+    .sheet-overlay {
+      position: fixed; inset: 0; z-index: 1100;
+      background: rgba(2, 6, 23, 0.6);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .2s;
+    }
+    .sheet-overlay.show { opacity: 1; pointer-events: auto; }
+    .sheet {
+      background: #fff;
+      width: 100%; max-width: 520px;
+      max-height: 92dvh; max-height: 92vh;
+      border-radius: 24px 24px 0 0;
+      display: flex; flex-direction: column;
+      transform: translateY(40px);
+      transition: transform .28s cubic-bezier(.2,.8,.2,1);
+      box-shadow: 0 -10px 40px rgba(0,0,0,0.25);
+    }
+    @supports (height: 1dvh) { .sheet { max-height: 92dvh; } }
+    .sheet-overlay.show .sheet { transform: translateY(0); }
+    .sheet-head {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 18px 12px; border-bottom: 1px solid var(--border);
+    }
+    .sheet-head h3 { font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+    .sheet-head h3 i { color: var(--primary); }
+    .close-modal {
+      width: 38px; height: 38px; border: none; border-radius: 50%;
+      background: #f1f5f9; color: var(--text-muted); font-size: 1rem;
+      display: grid; place-items: center;
+    }
+    .sheet-scroll { overflow-y: auto; padding: 4px 18px 14px; overscroll-behavior: contain; flex: 1 1 auto; }
+
+    .cart-lines { list-style: none; }
+    .line {
+      display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .line h4 { font-size: 0.92rem; font-weight: 700; }
+    .line .unit { font-size: 0.78rem; color: var(--text-muted); }
+    .line .subtotal { font-weight: 800; color: var(--text-main); font-size: 0.92rem; text-align: right; }
+    .line .stepper { justify-self: end; }
+    .line .stepper button { width: 32px; height: 30px; }
+
+    .order-form { display: grid; gap: 12px; padding-top: 14px; }
+    .field label, .field .label { display: block; font-size: 0.8rem; font-weight: 700; margin-bottom: 6px; }
+    .field label small, .field .label small { font-weight: 500; color: var(--text-muted); }
+    .field input[type="text"], .field textarea {
+      width: 100%; border: 1px solid var(--border); border-radius: 12px;
+      padding: 11px 14px; font-size: 16px; background: #f8fafc; outline: none; resize: none;
+      transition: border .2s, background .2s;
+    }
+    .field input[type="text"]:focus, .field textarea:focus { border-color: var(--primary); background: #fff; }
+    .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .seg input { position: absolute; opacity: 0; pointer-events: none; }
+    .seg label {
+      margin: 0; text-align: center; font-size: 0.84rem; font-weight: 700;
+      padding: 11px 8px; border-radius: 12px; border: 1px solid var(--border);
+      background: #f8fafc; color: var(--text-muted); cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all .2s;
+    }
+    .seg input:checked + label { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+    .seg input:focus-visible + label { outline: 3px solid rgba(255, 82, 0, 0.55); outline-offset: 2px; }
+
+    .sheet-foot {
+      padding: 12px 18px calc(14px + var(--safe-bottom));
+      border-top: 1px solid var(--border);
+      background: #fff; border-radius: 0 0 0 0;
+      display: grid; gap: 10px;
+    }
+    .modal-summary { display: flex; justify-content: space-between; align-items: center; font-weight: 800; }
+    .modal-summary span:last-child { color: var(--primary); font-size: 1.2rem; }
+    .btn-wa {
+      width: 100%; border: none; border-radius: 14px; padding: 14px;
+      background: #16a34a; color: #fff; font-weight: 800; font-size: 0.96rem;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      box-shadow: 0 8px 20px rgba(22, 163, 74, 0.3);
+    }
+    .btn-wa:hover { background: #15803d; }
+    .btn-ghost {
+      background: none; border: none; color: var(--text-muted);
+      font-size: 0.82rem; font-weight: 600; padding: 6px; justify-self: center;
+    }
+    .btn-ghost:hover { color: #dc2626; }
+
+    /* ───── Toast ───── */
+    .toast {
+      position: fixed; left: 50%; z-index: 1200;
+      bottom: calc(var(--bar-h) + var(--safe-bottom) + 14px);
+      transform: translate(-50%, 20px);
+      background: var(--dark-card); color: #fff;
+      padding: 11px 18px; border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.84rem; font-weight: 600;
+      max-width: calc(100% - 24px);
+      opacity: 0; pointer-events: none;
+      transition: transform .3s ease, opacity .3s ease;
+    }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    .toast i { color: #22c55e; }
+
+    /* ───── Footer ───── */
+    footer { background: var(--dark-bg); color: #94a3b8; padding: 2rem 0; border-top: 1px solid #1e293b; font-size: 0.85rem; }
+    .footer-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-brand strong { color: #fff; font-size: 1.05rem; }
+    .footer-info { display: flex; gap: 16px; flex-wrap: wrap; }
+    .footer-info-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; color: inherit; text-decoration: none; }
+    .footer-info-item i { color: var(--primary); }
+
+    /* ───── HP sangat kecil ───── */
+    @media (max-width: 359px) {
+      .card-menu { grid-template-columns: 88px 1fr; gap: 10px; }
+      .card-img-wrap { width: 88px; height: 88px; }
+      .btn-add span { display: none; }
+      .btn-add { padding: 0 12px; }
+      .nav-call span { display: none; }
+    }
+
+    /* ───── Tablet: 2 kolom, kartu vertikal ───── */
+    @media (min-width: 600px) {
+      .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .card-menu { grid-template-columns: 1fr; padding: 0; gap: 0; }
+      .card-img-wrap { width: 100%; height: 170px; border-radius: 0; }
+      .card-body { padding: 14px 16px 16px; }
+      .card-title { font-size: 1.05rem; }
+      .card-desc { font-size: 0.84rem; margin-bottom: 14px; }
+      .card-foot { padding-top: 12px; border-top: 1px dashed var(--border); }
+      .price { font-size: 1.02rem; }
+      .card-menu:hover { box-shadow: var(--shadow-md); }
+      .sheet-overlay { align-items: center; }
+      .sheet { border-radius: 24px; max-height: 88dvh; }
+      .sheet-foot { border-radius: 0 0 24px 24px; }
+      .toast { bottom: calc(var(--bar-h) + 14px); }
+    }
+
+    /* ───── Desktop: 3 kolom ───── */
+    @media (min-width: 768px) {
+      :root { --bar-h: 84px; }
+      .nav { padding: 1.25rem 0; }
+      .hero { grid-template-columns: 1.2fr 0.8fr; gap: 30px; padding: 2rem 0 1rem; }
+      .hero-img-bg { max-width: 320px; height: auto; aspect-ratio: 1; border-radius: 30px; transform: rotate(2deg); }
+      .floating-card { left: 0; bottom: -15px; padding: 10px 14px; font-size: 0.8rem; }
+      .features-grid { gap: 12px; margin-top: 1.5rem; }
+      .feature-item { flex-direction: row; text-align: left; padding: 12px 14px; gap: 10px; }
+      .feature-icon { width: 34px; height: 34px; font-size: 1rem; }
+      .feature-text strong { font-size: 0.8rem; }
+      .feature-text span { font-size: 0.7rem; }
+      .controls-bar { flex-direction: row; align-items: center; justify-content: space-between; padding: 12px 14px; }
+      .search-box { width: 300px; flex-shrink: 0; }
+      .filter-tabs { width: auto; justify-content: flex-end; }
+      .menu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+      .card-img-wrap { height: 180px; }
+      .fc-btn { width: min(560px, 100%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <i class="fas fa-utensils"></i>
-            </div>
-            <h1>Booth Makanan Urban Legend</h1>
-            <p>Rasakan kelezatan autentik makanan urban langsung dari booth kami</p>
-        </div>
-    </header>
-    
+
+  <!-- Header -->
+  <header>
     <div class="container">
-        <div class="main-content">
-            <section class="menu-section">
-                <h2 class="section-title">Menu Makanan Urban</h2>
-                
-                <div class="menu-category">
-                    <h3 class="category-title">Makanan Utama</h3>
-                    <div class="menu-items" id="main-dishes">
-                        </div>
-                </div>
-                
-                <div class="menu-category">
-                    <h3 class="category-title">Mie & Pangsit</h3>
-                    <div class="menu-items" id="noodles-dumplings">
-                        </div>
-                </div>
-                
-                <div class="menu-category">
-                    <h3 class="category-title">Minuman</h3>
-                    <div class="menu-items" id="drinks">
-                        </div>
-                </div>
-            </section>
-            
-            <section class="order-section">
-                <h2 class="section-title">Pesanan Anda</h2>
-                
-                <div class="cart-items" id="cart-items">
-                    <div class="empty-cart">Keranjang Anda kosong</div>
-                </div>
-                
-                <div class="cart-total">
-                    <span>Total:</span>
-                    <span id="cart-total">Rp 0</span>
-                </div>
-                
-                <div class="cart-actions">
-                    <button class="checkout-btn" id="checkout-btn">
-                        <i class="fas fa-shopping-cart"></i> Pesan Sekarang
-                    </button>
-                    <button class="clear-btn" id="clear-btn">
-                        <i class="fas fa-trash"></i> Kosongkan Keranjang
-                    </button>
-                </div>
-                
-                <div style="margin-top: 20px; font-size: 0.9rem; color: #666;">
-                    <p><i class="fas fa-info-circle"></i> Silakan pilih menu dan atur jumlah pesanan</p>
-                </div>
-            </section>
+      <nav class="nav">
+        <a href="#" class="brand" aria-label="Urban Legend, beranda">
+          <div class="brand-logo"><i class="fa-solid fa-utensils"></i></div>
+          <div class="brand-text">
+            <strong>URBAN LEGEND</strong>
+            <span>Food Booth · Est. 1954</span>
+          </div>
+        </a>
+        <a class="nav-call" href="tel:+6282319527214" aria-label="Telepon Urban Legend">
+          <i class="fa-solid fa-phone"></i><span>Hubungi</span>
+        </a>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <div class="badge-hero"><i class="fa-solid fa-award"></i> Sejak Tahun 1954</div>
+          <h1>Resep Khas,<br>Cita Rasa <span>Legendaris.</span></h1>
+          <p class="hero-desc">Nikmati kelezatan aneka olahan hidangan tradisional berkuah kaya rempah, sate bumbu khas, hingga lauk pendamping yang memanjakan lidah.</p>
+          <a class="btn-hero" href="#menu"><i class="fa-solid fa-bowl-food"></i> Pilih menu</a>
         </div>
-    </div>
-    
-    <div class="notification" id="notification">
-        Item telah ditambahkan ke keranjang!
-    </div>
-    
-    <footer>
-        <div class="container">
-            <p>Booth Makanan Urban &copy; 2026 - Pesan via web atau langsung ke booth kami</p>
-            <p><i class="fas fa-map-marker-alt"></i> Lokasi: Desa Buareng Festive, Stand No. 12</p>
+        <div class="hero-image-wrap">
+          <img src="https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=600&q=80" alt="Nasi Rawon Legendaris" class="hero-img-bg" referrerpolicy="no-referrer">
+          <div class="floating-card">
+            <i class="fa-solid fa-star"></i>
+            <div>Cita Rasa Otentik<small>Resep Warisan Khas</small></div>
+          </div>
         </div>
-    </footer>
-    
-    <script>
-        // Data menu makanan China
-        const menuItems = {
-            "main-dishes": [
-                { id: 1, name: "Nasi Goreng Special", description: "Nasi goreng dengan udang, ayam, dan sayuran", price: 35000 },
-                { id: 2, name: "Ayam Kungpao", description: "Ayam tumis pedas dengan kacang dan cabai", price: 40000 },
-                { id: 3, name: "Babi Asam Manis", description: "Irisan daging babi dengan saus asam manis", price: 45000 },
-                { id: 4, name: "Sapi Lada Hitam", description: "Sapi tumis dengan lada hitam dan bawang bombay", price: 50000 },
-                { id: 5, name: "Cap Cay Kuah", description: "Campuran sayuran dengan seafood dan ayam", price: 38000 },
-                { id: 6, name: "Tahu Telur Saus Tiram", description: "Tahu dan telur dengan saus tiram spesial", price: 32000 }
-            ],
-            "noodles-dumplings": [
-                { id: 7, name: "Mie Goreng Seafood", description: "Mie goreng dengan cumi, udang, dan kerang", price: 42000 },
-                { id: 8, name: "Kwetiau Goreng", description: "Kwetiau goreng dengan daging sapi dan sayuran", price: 38000 },
-                { id: 9, name: "Pangsit Goreng", description: "8 buah pangsit goreng isi ayam dan udang", price: 30000 },
-                { id: 10, name: "Pangsit Kuah", description: "8 buah pangsit kuah dengan kaldu ayam", price: 32000 },
-                { id: 11, name: "Mie Rebus Special", description: "Mie rebus dengan ayam, jamur, dan pangsit", price: 40000 }
-            ],
-            "drinks": [
-                { id: 12, name: "Es Teh Manis", description: "Es teh dengan gula sesuai selera", price: 8000 },
-                { id: 13, name: "Teh Tarik", description: "Teh susu khas dengan buih lembut", price: 15000 },
-                { id: 14, name: "Jus Jeruk Segar", description: "Jus jeruk peras tanpa gula tambahan", price: 12000 },
-                { id: 15, name: "Air Mineral", description: "Air mineral botol 600ml", price: 5000 }
-            ]
-        };
-        
-        // State untuk keranjang belanja
-        let cart = [];
-        
-        // Fungsi untuk menampilkan menu
-        function displayMenu() {
-            for (const category in menuItems) {
-                const container = document.getElementById(category);
-                container.innerHTML = '';
-                
-                menuItems[category].forEach(item => {
-                    const menuItemElement = document.createElement('div');
-                    menuItemElement.className = 'menu-item';
-                    menuItemElement.innerHTML = `
-                        <div class="item-header">
-                            <div class="item-name">${item.name}</div>
-                            <div class="item-price">Rp ${item.price.toLocaleString('id-ID')}</div>
-                        </div>
-                        <div class="item-description">${item.description}</div>
-                        <div class="item-footer">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn decrease" data-id="${item.id}">-</button>
-                                <span class="quantity" id="quantity-${item.id}">0</span>
-                                <button class="quantity-btn increase" data-id="${item.id}">+</button>
-                            </div>
-                            <button class="add-to-cart" data-id="${item.id}">
-                                <i class="fas fa-cart-plus"></i> Tambah
-                            </button>
-                        </div>
-                    `;
-                    
-                    container.appendChild(menuItemElement);
-                });
-            }
-            
-            // Event listeners untuk tombol
-            document.querySelectorAll('.increase').forEach(button => {
-                button.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    increaseQuantity(id);
-                });
-            });
-            
-            document.querySelectorAll('.decrease').forEach(button => {
-                button.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    decreaseQuantity(id);
-                });
-            });
-            
-            document.querySelectorAll('.add-to-cart').forEach(button => {
-                button.addEventListener('click', function() {
-                    const id = parseInt(this.getAttribute('data-id'));
-                    addToCart(id);
-                });
-            });
+      </section>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa-solid fa-bowl-hot"></i></div>
+          <div class="feature-text"><strong>Rempah Pilihan</strong><span>Kuah gurih kaya rasa</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa-solid fa-drumstick-bite"></i></div>
+          <div class="feature-text"><strong>Daging Empuk</strong><span>Diolah berjam-jam</span></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon"><i class="fa-solid fa-heart"></i></div>
+          <div class="feature-text"><strong>Harga Bersahabat</strong><span>Porsi mantap &amp; kenyang</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main id="menu">
+    <div class="container">
+
+      <div class="controls-wrap">
+        <div class="controls-bar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <label for="search-input" class="sr-only">Cari menu</label>
+            <input type="search" id="search-input" placeholder="Cari Nasi Rawon, Soto, Empal..." autocomplete="off" enterkeyhint="search">
+            <button type="button" class="search-clear" id="search-clear" aria-label="Hapus pencarian"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+          <div class="filter-tabs" id="filter-tabs" role="tablist" aria-label="Kategori menu">
+            <button type="button" class="tab-btn active" data-category="all" role="tab" aria-selected="true">Semua <em></em></button>
+            <button type="button" class="tab-btn" data-category="utama" role="tab" aria-selected="false">Makanan Utama <em></em></button>
+            <button type="button" class="tab-btn" data-category="sate" role="tab" aria-selected="false">Sate &amp; Daging <em></em></button>
+            <button type="button" class="tab-btn" data-category="lauk" role="tab" aria-selected="false">Lauk Pendamping <em></em></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1 menu per baris di HP, 2 kolom tablet, 3 kolom laptop -->
+      <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
+
+    </div>
+  </main>
+
+  <!-- Floating cart bar -->
+  <div class="floating-cart-bar" id="floating-cart">
+    <button type="button" class="fc-btn" id="open-cart" aria-label="Lihat pesanan dan kirim">
+      <span class="fc-info">
+        <span class="fc-icon">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="fc-badge" id="fc-count">0</span>
+        </span>
+        <span class="fc-text">
+          <small>Total pesanan</small>
+          <strong id="fc-total">Rp 0</strong>
+        </span>
+      </span>
+      <span class="fc-cta">Lihat &amp; pesan <i class="fa-solid fa-chevron-up"></i></span>
+    </button>
+  </div>
+
+  <!-- Sheet: keranjang + form pesan -->
+  <div class="sheet-overlay" id="cart-modal" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <div class="sheet-head">
+        <h3 id="sheet-title"><i class="fa-solid fa-basket-shopping"></i> Pesanan kamu</h3>
+        <button type="button" class="close-modal" id="close-cart" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="sheet-scroll">
+        <ul class="cart-lines" id="modal-cart-items"></ul>
+
+        <div class="order-form">
+          <div class="field">
+            <label for="cust-name">Nama pemesan <small>(opsional)</small></label>
+            <input type="text" id="cust-name" placeholder="Contoh: Budi" autocomplete="name" maxlength="40">
+          </div>
+          <div class="field">
+            <span class="label">Pesanan untuk</span>
+            <div class="seg">
+              <input type="radio" name="order-type" id="type-dine" value="Makan di tempat" checked>
+              <label for="type-dine"><i class="fa-solid fa-utensils"></i> Makan di tempat</label>
+              <input type="radio" name="order-type" id="type-take" value="Bawa pulang">
+              <label for="type-take"><i class="fa-solid fa-bag-shopping"></i> Bawa pulang</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="cust-note">Catatan <small>(opsional)</small></label>
+            <textarea id="cust-note" rows="2" placeholder="Contoh: tidak pedas, kuah dipisah" maxlength="200"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="sheet-foot">
+        <div class="modal-summary"><span>Total pembayaran</span><span id="modal-total-val">Rp 0</span></div>
+        <button type="button" class="btn-wa" id="send-wa"><i class="fa-brands fa-whatsapp"></i> Kirim pesanan via WhatsApp</button>
+        <button type="button" class="btn-ghost" id="clear-cart"><i class="fa-regular fa-trash-can"></i> Kosongkan pesanan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toast-msg"></span>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-flex">
+      <div class="footer-brand">
+        <strong>URBAN LEGEND</strong>
+        <p style="margin-top:4px; font-size:0.78rem;">Warung Kuliner Legendaris Sejak 1954.</p>
+      </div>
+      <div class="footer-info">
+        <div class="footer-info-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Jl. Tritura Makale Toraja, Stand No. 12</span>
+        </div>
+        <a class="footer-info-item" href="tel:+6282319527214">
+          <i class="fa-solid fa-phone"></i>
+          <span>0823 1952 7214</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Nomor WhatsApp tujuan pesanan (format internasional, tanpa +) */
+    const WA_NUMBER = '6282319527214';
+    const STORAGE_KEY = 'urbanlegend_cart_v1';
+    const PROFILE_KEY = 'urbanlegend_profile_v1';
+    const MAX_QTY = 99;
+
+    const menuItems = [
+      { id: 1, name: "Nasi Rawon", category: "utama", price: 26000, desc: "Nasi hangat disajikan dengan rawon kuah kluwek pekat khas Jawa Timur.", image: "https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&w=500&q=80" },
+      { id: 2, name: "Nasi Soto", category: "utama", price: 26000, desc: "Nasi dengan kuah soto kaya rempah, gurih, dan hangat.", image: "https://images.unsplash.com/photo-1572656631137-7935297eff55?auto=format&fit=crop&w=500&q=80" },
+      { id: 3, name: "Nasi Gule", category: "utama", price: 29000, desc: "Nasi dengan kuah gule kental beraroma rempah pilihan.", image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=500&q=80" },
+      { id: 4, name: "Nasi Sop", category: "utama", price: 15000, desc: "Sop kuah kaldu bening yang segar disajikan dengan nasi.", image: "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=500&q=80" },
+      { id: 5, name: "Nasi Campur", category: "utama", price: 18000, desc: "Nasi dengan aneka sajian lauk pauk pelengkap khas warung.", image: "https://img-global.cpcdn.com/recipes/9b30fbb082699c0b/1200x630cq80/photo.jpg" },
+      { id: 6, name: "Nasi Ayam Bakar", category: "utama", price: 28000, desc: "Ayam bakar bumbu meresap manis gurih dengan nasi hangat.", image: "https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=500&q=80" },
+      { id: 7, name: "Nasi Ayam Kare", category: "utama", price: 23000, desc: "Nasi kuah kare ayam lembut beraroma santan dan gurih.", image: "https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=500&q=80" },
+      
+      { id: 8, name: "Sate Komoh", category: "sate", price: 28000, desc: "Sate daging kelapa bumbu rempah tebal ukuran mantap.", image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=500&q=80" },
+      { id: 9, name: "Sate Usus", category: "sate", price: 22000, desc: "Sate usus bumbu kuning gurih dan empuk.", image: "https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?auto=format&fit=crop&w=500&q=80" },
+      { id: 10, name: "Sate Manis", category: "sate", price: 14000, desc: "Sate bumbu olahan manis gurih yang lezat.", image: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=500&q=80" },
+      { id: 11, name: "Empal", category: "sate", price: 28000, desc: "Daging empal gurih berbumbu manis khas.", image: "https://www.enakeco.com/wp-content/uploads/2024/03/empal-goreng-optimized.jpg" },
+      { id: 12, name: "Babat", category: "sate", price: 22000, desc: "Olahan babat berbumbu rempah ungkep gurih.", image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80" },
+      { id: 13, name: "Lidah", category: "sate", price: 22000, desc: "Olahan lidah sapi empuk dengan bumbu meresap.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_GV0TGzjXkU5fSa3aTfrrLzuFSk9NW-haSJB6uVohr2JdrGr2KMz37Xg&s=10" },
+      { id: 14, name: "Limpa", category: "sate", price: 22000, desc: "Limpa pilihan bertekstur lembut berbumbu gurih.", image: "https://cdn.grid.id/crop/0x0:0x0/1200x630/filters:format(webp):quality(100)/photo/sasefoto/original/15529-limpa-goreng-lengkuas.jpg" },
+      { id: 15, name: "Otak", category: "sate", price: 22000, desc: "Olahan otak sapi lembut berbalut telur dan rempah.", image: "https://asset.kompas.com/crops/eBFzfscn4ut_f2CzrGmg1ALcJk8=/0x44:1000x710/1200x800/data/photo/2021/07/19/60f493028d8f4.jpg" },
+      { id: 16, name: "Paru", category: "sate", price: 22000, desc: "Paru goreng gurih dan rempah ungkep wangi.", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV-h1TGLjpBDRP55iDWnUzNsRl6J9kFM-JnaIbsDlMSMSK4GBDnZdE0oOc&s=10" },
+      
+      { id: 17, name: "Perkedel", category: "lauk", price: 22000, desc: "Perkedel kentang lembut dengan paduan daging giling.", image: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=500&q=80" },
+      { id: 18, name: "Tempe", category: "lauk", price: 7000, desc: "Tempe goreng gurih cocok sebagai pendamping makanan.", image: "https://asset.tribunnews.com/35jp_GtMP5doiC8XflBEIqNzUJ4=/1200x675/filters:upscale():quality(30):format(webp):focal(0.5x0.5:0.5x0.5)/style/foto/bank/originals/tempe-goreng-bumbu-kunyit.jpg" },
+      { id: 19, name: "Mendol", category: "lauk", price: 3000, desc: "Olahan mendol tempe berempah khas Jawa Timuran.", image: "https://assets-cloudflare.segari-ops.id/recipes/mendol-tempe-lsbc3glpiNTUT.jpg" },
+      { id: 20, name: "Nasi Putih", category: "lauk", price: 3000, desc: "Nasi putih hangat porsi pas.", image: "https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=500&q=80" }
+    ];
+
+    /* ───── State ───── */
+    let cart = loadCart();            // { [id]: qty }
+    let activeCategory = 'all';
+    let searchQuery = '';
+    let lastFocus = null;
+
+    const $ = (id) => document.getElementById(id);
+    const grid = $('menu-grid');
+    const formatRupiah = (n) => `Rp ${n.toLocaleString('id-ID')}`;
+    const escapeHTML = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    /* ───── Penyimpanan (aman jika diblokir browser) ───── */
+    function loadCart() {
+      try {
+        const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        const out = {};
+        for (const [id, q] of Object.entries(raw)) {
+          if (menuItems.some(m => m.id === Number(id)) && q > 0) out[id] = Math.min(MAX_QTY, q | 0);
         }
-        
-        function increaseQuantity(id) {
-            const quantityElement = document.getElementById(`quantity-${id}`);
-            let quantity = parseInt(quantityElement.textContent);
-            quantity++;
-            quantityElement.textContent = quantity;
-        }
-        
-        function decreaseQuantity(id) {
-            const quantityElement = document.getElementById(`quantity-${id}`);
-            let quantity = parseInt(quantityElement.textContent);
-            if (quantity > 0) {
-                quantity--;
-                quantityElement.textContent = quantity;
-            }
-        }
-        
-        function getMenuItemById(id) {
-            for (const category in menuItems) {
-                const item = menuItems[category].find(item => item.id === id);
-                if (item) return item;
-            }
-            return null;
-        }
-        
-        function addToCart(id) {
-            const quantityElement = document.getElementById(`quantity-${id}`);
-            const quantity = parseInt(quantityElement.textContent);
-            
-            if (quantity <= 0) return;
-            
-            const menuItem = getMenuItemById(id);
-            if (!menuItem) return;
-            
-            const existingItemIndex = cart.findIndex(item => item.id === id);
-            
-            if (existingItemIndex >= 0) {
-                cart[existingItemIndex].quantity += quantity;
-            } else {
-                cart.push({
-                    id: menuItem.id,
-                    name: menuItem.name,
-                    price: menuItem.price,
-                    quantity: quantity
-                });
-            }
-            
-            quantityElement.textContent = '0';
-            updateCartDisplay();
-            showNotification(`${quantity} ${menuItem.name} ditambahkan ke keranjang`);
-        }
-        
-        // Fungsi untuk memperbarui tampilan keranjang
-        function updateCartDisplay() {
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartTotalElement = document.getElementById('cart-total');
-            
-            // Bersihkan kontainer
-            cartItemsContainer.innerHTML = '';
-            
-            if (cart.length === 0) {
-                // Jika kosong, buat elemen pesan kosong
-                const emptyMsg = document.createElement('div');
-                emptyMsg.className = 'empty-cart';
-                emptyMsg.textContent = 'Keranjang Anda kosong';
-                cartItemsContainer.appendChild(emptyMsg);
-                
-                cartTotalElement.textContent = 'Rp 0';
-                return;
-            }
-            
-            let total = 0;
-            
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                
-                const cartItemElement = document.createElement('div');
-                cartItemElement.className = 'cart-item';
-                cartItemElement.innerHTML = `
-                    <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-quantity">${item.quantity}x</div>
-                    <div class="cart-item-price">Rp ${itemTotal.toLocaleString('id-ID')}</div>
-                `;
-                
-                cartItemsContainer.appendChild(cartItemElement);
-            });
-            
-            cartTotalElement.textContent = `Rp ${total.toLocaleString('id-ID')}`;
-        }
-        
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
-        }
-        
-        function clearCart() {
-            cart = [];
-            updateCartDisplay();
-            showNotification('Keranjang telah dikosongkan');
-        }
-        
-        function checkout() {
-            if (cart.length === 0) {
-                showNotification('Keranjang Anda kosong. Silakan tambahkan item terlebih dahulu.');
-                return;
-            }
-            
-            let orderSummary = "Pesanan Anda:\n";
-            let total = 0;
-            
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                orderSummary += `${item.name} - ${item.quantity}x = Rp ${itemTotal.toLocaleString('id-ID')}\n`;
-            });
-            
-            orderSummary += `\nTotal: Rp ${total.toLocaleString('id-ID')}`;
-            
-            alert(orderSummary + "\n\nTerima kasih! Silakan lanjutkan pembayaran di kasir.");
-            clearCart();
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            displayMenu();
-            updateCartDisplay(); // Panggil sekali di awal untuk memastikan status kosong benar
-            
-            document.getElementById('clear-btn').addEventListener('click', clearCart);
-            document.getElementById('checkout-btn').addEventListener('click', checkout);
-        });
-    </script>
+        return out;
+      } catch (e) { return {}; }
+    }
+    function saveCart() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cart)); } catch (e) {} }
+    function loadProfile() { try { return JSON.parse(localStorage.getItem(PROFILE_KEY) || '{}'); } catch (e) { return {}; } }
+    function saveProfile() {
+      try {
+        localStorage.setItem(PROFILE_KEY, JSON.stringify({
+          name: $('cust-name').value,
+          type: document.querySelector('input[name="order-type"]:checked').value
+        }));
+      } catch (e) {}
+    }
+
+    /* ───── Render menu ───── */
+    function controlHTML(item) {
+      const q = cart[item.id] || 0;
+      const n = escapeHTML(item.name);
+      if (!q) {
+        return `<button type="button" class="btn-add" data-act="inc" aria-label="Tambah ${n}"><i class="fa-solid fa-plus"></i><span>Tambah</span></button>`;
+      }
+      return stepperHTML(item, q);
+    }
+    function stepperHTML(item, q) {
+      const n = escapeHTML(item.name);
+      return `<div class="stepper" role="group" aria-label="Jumlah ${n}">
+        <button type="button" data-act="dec" aria-label="Kurangi ${n}"><i class="fa-solid ${q === 1 ? 'fa-trash-can' : 'fa-minus'}"></i></button>
+        <output>${q}</output>
+        <button type="button" data-act="inc" aria-label="Tambah ${n}"><i class="fa-solid fa-plus"></i></button>
+      </div>`;
+    }
+
+    function renderMenu() {
+      const q = searchQuery.trim().toLowerCase();
+      const filtered = menuItems.filter(item => {
+        const okCat = activeCategory === 'all' || item.category === activeCategory;
+        const okSearch = !q || item.name.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q);
+        return okCat && okSearch;
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="empty-state">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <p>Menu "${escapeHTML(searchQuery.trim())}" tidak ditemukan.</p>
+          <button type="button" id="reset-search">Tampilkan semua menu</button>
+        </div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => `
+        <article class="card-menu${cart[item.id] ? ' in-cart' : ''}" data-id="${item.id}">
+          <div class="card-img-wrap">
+            <img src="${item.image}" alt="${escapeHTML(item.name)}" loading="lazy" decoding="async" width="500" height="500" referrerpolicy="no-referrer">
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">${escapeHTML(item.name)}</h3>
+            <p class="card-desc">${escapeHTML(item.desc)}</p>
+            <div class="card-foot">
+              <span class="price">${formatRupiah(item.price)}</span>
+              <div data-ctl>${controlHTML(item)}</div>
+            </div>
+          </div>
+        </article>`).join('');
+    }
+
+    function updateTabCounts() {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        const c = btn.dataset.category;
+        btn.querySelector('em').textContent = c === 'all' ? menuItems.length : menuItems.filter(i => i.category === c).length;
+      });
+    }
+
+    /* ───── Aksi jumlah ───── */
+    function changeQty(id, delta) {
+      const prev = cart[id] || 0;
+      const next = Math.max(0, Math.min(MAX_QTY, prev + delta));
+      if (next === prev) return;
+      if (next === 0) delete cart[id]; else cart[id] = next;
+      saveCart();
+
+      const item = menuItems.find(i => i.id === id);
+      if (prev === 0) showToast(`${item.name} masuk pesanan`);
+
+      refreshCard(id);
+      updateBar(delta > 0);
+      if (isSheetOpen()) {
+        if (!Object.keys(cart).length) closeSheet(); else renderSheet();
+      }
+    }
+
+    function refreshCard(id) {
+      const item = menuItems.find(i => i.id === id);
+      document.querySelectorAll(`.card-menu[data-id="${id}"]`).forEach(card => {
+        const ctl = card.querySelector('[data-ctl]');
+        const hadFocus = ctl.contains(document.activeElement);
+        const act = hadFocus ? document.activeElement.dataset.act : null;
+        ctl.innerHTML = controlHTML(item);
+        card.classList.toggle('in-cart', !!cart[id]);
+        if (hadFocus) (ctl.querySelector(`[data-act="${act}"]`) || ctl.querySelector('button')).focus({ preventScroll: true });
+      });
+    }
+
+    /* ───── Floating bar ───── */
+    function cartTotals() {
+      let count = 0, total = 0;
+      for (const [id, q] of Object.entries(cart)) {
+        const it = menuItems.find(i => i.id === Number(id));
+        count += q; total += it.price * q;
+      }
+      return { count, total };
+    }
+    function updateBar(bump) {
+      const { count, total } = cartTotals();
+      $('fc-count').textContent = count;
+      $('fc-total').textContent = formatRupiah(total);
+      $('modal-total-val').textContent = formatRupiah(total);
+      const bar = $('floating-cart');
+      bar.classList.toggle('active', count > 0);
+      if (bump) { bar.classList.remove('bump'); void bar.offsetWidth; bar.classList.add('bump'); }
+    }
+
+    /* ───── Sheet ───── */
+    const sheet = $('cart-modal');
+    const isSheetOpen = () => sheet.classList.contains('show');
+
+    function renderSheet() {
+      const ids = Object.keys(cart).map(Number);
+      $('modal-cart-items').innerHTML = ids.map(id => {
+        const it = menuItems.find(i => i.id === id);
+        const q = cart[id];
+        return `<li class="line" data-id="${id}">
+          <h4>${escapeHTML(it.name)}</h4>
+          <span class="subtotal">${formatRupiah(it.price * q)}</span>
+          <span class="unit">${formatRupiah(it.price)} / porsi</span>
+          ${stepperHTML(it, q)}
+        </li>`;
+      }).join('');
+      updateBar(false);
+    }
+
+    function openSheet() {
+      if (!Object.keys(cart).length) return;
+      lastFocus = document.activeElement;
+      renderSheet();
+      sheet.classList.add('show');
+      sheet.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      $('close-cart').focus({ preventScroll: true });
+    }
+    function closeSheet() {
+      sheet.classList.remove('show');
+      sheet.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    }
+
+    function clearCart() {
+      if (!confirm('Kosongkan semua pesanan?')) return;
+      const ids = Object.keys(cart).map(Number);
+      cart = {};
+      saveCart();
+      ids.forEach(refreshCard);
+      updateBar(false);
+      closeSheet();
+      showToast('Pesanan dikosongkan');
+    }
+
+    /* ───── Kirim via WhatsApp ───── */
+    function sendOrder() {
+      const ids = Object.keys(cart).map(Number);
+      if (!ids.length) return;
+      const name = $('cust-name').value.trim();
+      const type = document.querySelector('input[name="order-type"]:checked').value;
+      const note = $('cust-note').value.trim();
+
+      const lines = ['*PESANAN URBAN LEGEND*'];
+      if (name) lines.push(`Nama: ${name}`);
+      lines.push(`Jenis: ${type}`, '');
+      let total = 0;
+      ids.forEach(id => {
+        const it = menuItems.find(i => i.id === id);
+        const sub = it.price * cart[id];
+        total += sub;
+        lines.push(`• ${it.name} ${cart[id]}x = ${formatRupiah(sub)}`);
+      });
+      lines.push('', `*Total: ${formatRupiah(total)}*`);
+      if (note) lines.push('', `Catatan: ${note}`);
+
+      const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+      saveProfile();
+      window.open(url, '_blank', 'noopener');
+      showToast('Membuka WhatsApp…');
+    }
+
+    /* ───── Toast ───── */
+    let toastTimer;
+    function showToast(msg) {
+      $('toast-msg').textContent = msg;
+      const t = $('toast');
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
+    }
+
+    /* ───── Events ───── */
+    function onStepperClick(e) {
+      const btn = e.target.closest('[data-act]');
+      if (!btn) return;
+      const host = btn.closest('[data-id]');
+      if (!host) return;
+      changeQty(Number(host.dataset.id), btn.dataset.act === 'inc' ? 1 : -1);
+    }
+    grid.addEventListener('click', (e) => {
+      if (e.target.closest('#reset-search')) { resetFilters(); return; }
+      onStepperClick(e);
+    });
+    $('modal-cart-items').addEventListener('click', onStepperClick);
+
+    // Gambar gagal dimuat → tampilkan ikon pengganti (sumber gambar tidak diubah)
+    grid.addEventListener('error', (e) => {
+      if (e.target.tagName === 'IMG') e.target.parentElement.classList.add('img-fail');
+    }, true);
+
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        activeCategory = btn.dataset.category;
+        renderMenu();
+      });
+    });
+
+    const searchInput = $('search-input');
+    const searchClear = $('search-clear');
+    searchInput.addEventListener('input', () => {
+      searchQuery = searchInput.value;
+      searchClear.classList.toggle('show', !!searchQuery);
+      renderMenu();
+    });
+    searchClear.addEventListener('click', () => { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); searchInput.focus(); });
+    function resetFilters() {
+      searchInput.value = ''; searchQuery = ''; searchClear.classList.remove('show');
+      document.querySelector('.tab-btn[data-category="all"]').click();
+    }
+
+    $('open-cart').addEventListener('click', openSheet);
+    $('close-cart').addEventListener('click', closeSheet);
+    $('clear-cart').addEventListener('click', clearCart);
+    $('send-wa').addEventListener('click', sendOrder);
+    sheet.addEventListener('click', (e) => { if (e.target === sheet) closeSheet(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isSheetOpen()) closeSheet(); });
+
+    $('cust-name').addEventListener('input', saveProfile);
+    document.querySelectorAll('input[name="order-type"]').forEach(r => r.addEventListener('change', saveProfile));
+
+    /* ───── Init ───── */
+    (function init() {
+      const p = loadProfile();
+      if (p.name) $('cust-name').value = p.name;
+      if (p.type) { const r = [...document.querySelectorAll('input[name="order-type"]')].find(x => x.value === p.type); if (r) r.checked = true; }
+      updateTabCounts();
+      renderMenu();
+      updateBar(false);
+    })();
+  </script>
 </body>
 </html>
