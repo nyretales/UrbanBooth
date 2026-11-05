@@ -659,7 +659,7 @@
       <div class="menu-intro">
         <span class="eyebrow">Menu pilihan</span>
         <h2>Temukan Favoritmu</h2>
-        <p>Geser atau biarkan menu berputar otomatis</p>
+        <p></p>
       </div>
       <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
       <div class="carousel-nav" aria-label="Navigasi menu">
@@ -902,13 +902,21 @@
 
     function startCarousel() {
       stopCarousel();
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        carouselTimer = setInterval(() => {
-          if (!document.hidden && !isSheetOpen()) moveCarousel(1);
-        }, 3600);
-      }
+      // Autoplay tetap berjalan saat disentuh/hover; hanya jeda saat tab tersembunyi,
+      // dialog keranjang terbuka, atau pengguna meminta reduced motion.
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      carouselTimer = window.setInterval(() => {
+        if (document.visibilityState === 'visible' && !isSheetOpen()) moveCarousel(1);
+      }, 3000);
     }
-    function stopCarousel() { if (carouselTimer) clearInterval(carouselTimer); carouselTimer = null; }
+    function stopCarousel() {
+      if (carouselTimer !== null) window.clearInterval(carouselTimer);
+      carouselTimer = null;
+    }
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') startCarousel();
+      else stopCarousel();
+    });
 
     function updateTabCounts() {
       document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -1077,18 +1085,9 @@
     grid.addEventListener('touchend', e => {
       const dx = e.changedTouches[0].screenX - touchStartX;
       if (Math.abs(dx) > 35) moveCarousel(dx < 0 ? 1 : -1);
-      // Pada browser mobile, :hover kadang tertinggal setelah kartu disentuh.
-      // Jadwalkan ulang autoplay setelah interaksi sentuh selesai.
-      startCarousel();
     }, { passive:true });
     $('carousel-prev').addEventListener('click', () => moveCarousel(-1));
     $('carousel-next').addEventListener('click', () => moveCarousel(1));
-    // Pause hanya untuk pointer mouse; sentuhan HP tidak boleh mengunci autoplay.
-    grid.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') stopCarousel(); });
-    grid.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') startCarousel(); });
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) startCarousel(); else stopCarousel(); });
-    grid.addEventListener('focusin', stopCarousel);
-    grid.addEventListener('focusout', startCarousel);
     $('modal-cart-items').addEventListener('click', onStepperClick);
 
     // Gambar gagal dimuat → tampilkan ikon pengganti (sumber gambar tidak diubah)
