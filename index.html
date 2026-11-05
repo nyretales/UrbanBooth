@@ -524,6 +524,61 @@
       .fc-btn { width: min(560px, 100%); }
     }
 
+    /* ───── 3D Coverflow menu redesign ───── */
+    .menu-intro { text-align:center; padding: 18px 0 8px; }
+    .menu-intro .eyebrow { color:var(--primary); font-size:.7rem; font-weight:800; letter-spacing:2px; text-transform:uppercase; }
+    .menu-intro h2 { font-size:clamp(1.35rem,4vw,2rem); line-height:1.2; margin:4px 0; }
+    .menu-intro p { color:var(--text-muted); font-size:.82rem; }
+    #menu-grid.menu-grid {
+      display:block; position:relative; height:440px; width:100%; overflow:hidden;
+      perspective:1200px; isolation:isolate; margin:4px auto 0;
+      touch-action:pan-y; user-select:none;
+    }
+    #menu-grid .card-menu {
+      position:absolute; left:50%; top:12px; width:min(72vw,310px); height:395px;
+      display:flex; flex-direction:column; gap:0; padding:0; overflow:hidden;
+      border:1px solid rgba(255,255,255,.72); border-radius:24px;
+      background:rgba(255,255,255,.92); box-shadow:0 22px 55px rgba(15,23,42,.18);
+      transform:translateX(-50%) scale(.72); opacity:0; pointer-events:none;
+      transition:transform .65s cubic-bezier(.2,.75,.2,1), opacity .45s, filter .65s, box-shadow .4s;
+      transform-style:preserve-3d; will-change:transform,opacity;
+    }
+    #menu-grid .card-menu .card-img-wrap { width:100%; height:220px; flex:none; border-radius:0; background:#e2e8f0; }
+    #menu-grid .card-menu .card-img-wrap img { object-fit:cover; }
+    #menu-grid .card-menu .card-body { padding:16px 18px 18px; flex:1; }
+    #menu-grid .card-menu .card-title { font-size:1.12rem; }
+    #menu-grid .card-menu .card-desc { font-size:.8rem; margin:5px 0 12px; }
+    #menu-grid .card-menu .card-foot { border-top:1px dashed var(--border); padding-top:12px; }
+    #menu-grid .card-menu.is-active { z-index:5; opacity:1; pointer-events:auto; transform:translateX(-50%) translateZ(100px) scale(1); box-shadow:0 28px 65px rgba(15,23,42,.24),0 0 0 1px rgba(255,82,0,.12); }
+    #menu-grid .card-menu.is-prev { z-index:4; opacity:.78; pointer-events:auto; transform:translateX(calc(-50% - 190px)) rotateY(24deg) scale(.82); filter:saturate(.75); }
+    #menu-grid .card-menu.is-next { z-index:4; opacity:.78; pointer-events:auto; transform:translateX(calc(-50% + 190px)) rotateY(-24deg) scale(.82); filter:saturate(.75); }
+    #menu-grid .card-menu.is-far-prev { z-index:2; opacity:.28; transform:translateX(calc(-50% - 330px)) rotateY(35deg) scale(.68); }
+    #menu-grid .card-menu.is-far-next { z-index:2; opacity:.28; transform:translateX(calc(-50% + 330px)) rotateY(-35deg) scale(.68); }
+    #menu-grid .card-menu.in-cart.is-active { border-color:rgba(255,82,0,.65); }
+    .carousel-nav { display:flex; align-items:center; justify-content:center; gap:18px; margin:0 auto 24px; }
+    .carousel-arrow { width:42px; height:42px; border:1px solid var(--border); border-radius:50%; background:#fff; color:var(--primary); box-shadow:var(--shadow-sm); font-size:1rem; }
+    .carousel-arrow:active { transform:scale(.94); }
+    .carousel-count { min-width:76px; text-align:center; color:var(--text-muted); font-size:.78rem; font-weight:800; letter-spacing:1px; }
+    .carousel-hint { text-align:center; color:#94a3b8; font-size:.7rem; margin-top:-15px; margin-bottom:24px; }
+    #menu-grid .empty-state { position:absolute; inset:0; display:grid; align-content:center; justify-items:center; }
+    @media (max-width:600px) {
+      #menu-grid.menu-grid { height:420px; }
+      #menu-grid .card-menu { top:10px; height:380px; width:min(76vw,300px); }
+      #menu-grid .card-menu .card-img-wrap { height:205px; }
+      #menu-grid .card-menu.is-prev { transform:translateX(calc(-50% - 145px)) rotateY(22deg) scale(.78); }
+      #menu-grid .card-menu.is-next { transform:translateX(calc(-50% + 145px)) rotateY(-22deg) scale(.78); }
+      #menu-grid .card-menu.is-far-prev { transform:translateX(calc(-50% - 250px)) rotateY(30deg) scale(.65); }
+      #menu-grid .card-menu.is-far-next { transform:translateX(calc(-50% + 250px)) rotateY(-30deg) scale(.65); }
+    }
+    @media (min-width:768px) {
+      #menu-grid.menu-grid { height:470px; }
+      #menu-grid .card-menu { width:320px; height:420px; }
+      #menu-grid .card-menu .card-img-wrap { height:235px; }
+      #menu-grid .card-menu.is-prev { transform:translateX(calc(-50% - 235px)) rotateY(25deg) scale(.82); }
+      #menu-grid .card-menu.is-next { transform:translateX(calc(-50% + 235px)) rotateY(-25deg) scale(.82); }
+      #menu-grid .card-menu.is-far-prev { transform:translateX(calc(-50% - 405px)) rotateY(34deg) scale(.7); }
+      #menu-grid .card-menu.is-far-next { transform:translateX(calc(-50% + 405px)) rotateY(-34deg) scale(.7); }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
     }
@@ -601,8 +656,18 @@
         </div>
       </div>
 
-      <!-- 1 menu per baris di HP, 2 kolom tablet, 3 kolom laptop -->
+      <div class="menu-intro">
+        <span class="eyebrow">Menu pilihan</span>
+        <h2>Temukan Favoritmu</h2>
+        <p>Geser atau biarkan menu berputar otomatis</p>
+      </div>
       <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
+      <div class="carousel-nav" aria-label="Navigasi menu">
+        <button type="button" class="carousel-arrow" id="carousel-prev" aria-label="Menu sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+        <span class="carousel-count" id="carousel-count">01 / 20</span>
+        <button type="button" class="carousel-arrow" id="carousel-next" aria-label="Menu berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      <p class="carousel-hint"><i class="fa-solid fa-hand-pointer"></i> Geser kartu · Ketuk kartu samping untuk memilih</p>
 
     </div>
   </main>
@@ -725,6 +790,9 @@
     let activeCategory = 'all';
     let searchQuery = '';
     let lastFocus = null;
+    let activeMenuIndex = 0;
+    let carouselTimer = null;
+    let touchStartX = 0;
 
     const $ = (id) => document.getElementById(id);
     const grid = $('menu-grid');
@@ -785,11 +853,13 @@
           <p>Menu "${escapeHTML(searchQuery.trim())}" tidak ditemukan.</p>
           <button type="button" id="reset-search">Tampilkan semua menu</button>
         </div>`;
+        $('carousel-count').textContent = '00 / 00';
         return;
       }
 
-      grid.innerHTML = filtered.map(item => `
-        <article class="card-menu${cart[item.id] ? ' in-cart' : ''}" data-id="${item.id}">
+      activeMenuIndex = Math.min(activeMenuIndex, filtered.length - 1);
+      grid.innerHTML = filtered.map((item, index) => `
+        <article class="card-menu${cart[item.id] ? ' in-cart' : ''}" data-id="${item.id}" data-index="${index}" tabindex="0" aria-label="${escapeHTML(item.name)}">
           <div class="card-img-wrap">
             <img src="${item.image}" alt="${escapeHTML(item.name)}" loading="lazy" decoding="async" width="500" height="500" referrerpolicy="no-referrer">
           </div>
@@ -802,7 +872,43 @@
             </div>
           </div>
         </article>`).join('');
+      updateCarouselPositions();
     }
+
+    function updateCarouselPositions() {
+      const cards = [...grid.querySelectorAll('.card-menu')];
+      const total = cards.length;
+      cards.forEach((card, index) => {
+        card.classList.remove('is-active','is-prev','is-next','is-far-prev','is-far-next');
+        let delta = index - activeMenuIndex;
+        if (delta > total / 2) delta -= total;
+        if (delta < -total / 2) delta += total;
+        if (delta === 0) card.classList.add('is-active');
+        else if (delta === -1) card.classList.add('is-prev');
+        else if (delta === 1) card.classList.add('is-next');
+        else if (delta === -2) card.classList.add('is-far-prev');
+        else if (delta === 2) card.classList.add('is-far-next');
+        card.setAttribute('aria-hidden', Math.abs(delta) > 2 ? 'true' : 'false');
+      });
+      $('carousel-count').textContent = `${String(activeMenuIndex + 1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+    }
+
+    function moveCarousel(direction) {
+      const total = grid.querySelectorAll('.card-menu').length;
+      if (!total) return;
+      activeMenuIndex = (activeMenuIndex + direction + total) % total;
+      updateCarouselPositions();
+    }
+
+    function startCarousel() {
+      stopCarousel();
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        carouselTimer = setInterval(() => {
+          if (!document.hidden && !isSheetOpen() && !grid.matches(':hover')) moveCarousel(1);
+        }, 3600);
+      }
+    }
+    function stopCarousel() { if (carouselTimer) clearInterval(carouselTimer); carouselTimer = null; }
 
     function updateTabCounts() {
       document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -955,6 +1061,29 @@
       if (e.target.closest('#reset-search')) { resetFilters(); return; }
       onStepperClick(e);
     });
+    grid.addEventListener('click', (e) => {
+      if (e.target.closest('[data-act]')) return;
+      const card = e.target.closest('.card-menu');
+      if (!card) return;
+      const index = Number(card.dataset.index);
+      if (Number.isInteger(index) && index !== activeMenuIndex) { activeMenuIndex = index; updateCarouselPositions(); }
+    });
+    grid.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('card-menu')) {
+        e.preventDefault(); activeMenuIndex = Number(e.target.dataset.index); updateCarouselPositions();
+      }
+    });
+    grid.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive:true });
+    grid.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].screenX - touchStartX;
+      if (Math.abs(dx) > 35) moveCarousel(dx < 0 ? 1 : -1);
+    }, { passive:true });
+    $('carousel-prev').addEventListener('click', () => moveCarousel(-1));
+    $('carousel-next').addEventListener('click', () => moveCarousel(1));
+    grid.addEventListener('mouseenter', stopCarousel);
+    grid.addEventListener('mouseleave', startCarousel);
+    grid.addEventListener('focusin', stopCarousel);
+    grid.addEventListener('focusout', startCarousel);
     $('modal-cart-items').addEventListener('click', onStepperClick);
 
     // Gambar gagal dimuat → tampilkan ikon pengganti (sumber gambar tidak diubah)
@@ -969,6 +1098,7 @@
         btn.setAttribute('aria-selected', 'true');
         btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
         activeCategory = btn.dataset.category;
+        activeMenuIndex = 0;
         renderMenu();
       });
     });
@@ -978,6 +1108,7 @@
     searchInput.addEventListener('input', () => {
       searchQuery = searchInput.value;
       searchClear.classList.toggle('show', !!searchQuery);
+      activeMenuIndex = 0;
       renderMenu();
     });
     searchClear.addEventListener('click', () => { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); searchInput.focus(); });
@@ -1004,6 +1135,7 @@
       updateTabCounts();
       renderMenu();
       updateBar(false);
+      startCarousel();
     })();
   </script>
 </body>
